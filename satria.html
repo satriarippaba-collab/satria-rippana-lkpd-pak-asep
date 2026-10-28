@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD JavaScript — Mengenal Variable</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18233b;--text:#edf2ff;--muted:#a9b6d3;--accent:#7c9cff;--mint:#68e0c0;--line:#2b3958;--code:#080d19}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at top right,#1b2b52 0,transparent 38%),var(--bg);color:var(--text);font:16px/1.7 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{padding:56px 20px 44px;text-align:center;background:linear-gradient(135deg,rgba(124,156,255,.17),rgba(104,224,192,.08));border-bottom:1px solid var(--line)}
+.badge{display:inline-block;border:1px solid #53699c;background:#1a2744;color:#bfcfff;border-radius:999px;padding:5px 13px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.12;margin:18px 0 10px}header p{max-width:700px;margin:0 auto;color:var(--muted)}
+.identity{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:26px auto 0}.identity div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 18px}
+.layout{max-width:1250px;margin:auto;padding:24px;display:grid;grid-template-columns:245px minmax(0,1fr);gap:24px}
+nav{position:sticky;top:18px;align-self:start;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;max-height:calc(100vh - 36px);overflow:auto}
+nav strong{display:block;margin:0 0 10px;color:var(--mint)}nav a{display:block;text-decoration:none;color:var(--muted);padding:7px 10px;border-radius:8px;font-size:.92rem}nav a:hover{background:var(--panel2);color:var(--text)}
+main{min-width:0}.card{background:linear-gradient(145deg,rgba(24,35,59,.96),rgba(18,26,46,.96));border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,30px);margin-bottom:20px;box-shadow:0 14px 36px #00000016}
+h2{font-size:1.35rem;margin:0 0 16px;display:flex;gap:10px;align-items:center}h2 span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#26375b;color:var(--mint);font-size:.95rem}
+h3{margin:22px 0 8px;color:#c9d6ff;font-size:1.05rem}p{margin:9px 0}ul,ol{padding-left:24px}li{margin:4px 0}.muted{color:var(--muted)}.answer{border-left:3px solid var(--mint);background:#0e1928;padding:12px 15px;border-radius:0 10px 10px 0;margin:12px 0}.answer b{color:var(--mint)}
+pre{white-space:pre-wrap;overflow:auto;background:var(--code);border:1px solid #27334e;padding:16px;border-radius:12px;color:#d6e3ff;font: .92rem/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:12px 0;overflow:hidden;border-radius:10px}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}th{background:#233252;color:#dbe4ff}td{background:#10192b}
+.pill{display:inline-block;padding:2px 9px;border-radius:6px;background:#233252;color:#c9d6ff;font-size:.85rem}
+.reflection{border:1px dashed #64769c;padding:14px;border-radius:12px;color:var(--muted)}
+.blank{display:inline-block;min-width:120px;border-bottom:1px solid #667796;height:1.2em}
+footer{text-align:center;padding:30px 20px;color:var(--muted);border-top:1px solid var(--line)}
+button{position:fixed;right:18px;bottom:18px;border:0;background:var(--accent);color:#081022;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px #0005}
+@media(max-width:850px){.layout{grid-template-columns:1fr;padding:14px}nav{position:relative;top:0;max-height:none}nav .links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.card{padding:18px}header{padding:40px 16px}}
+@media print{body{background:white;color:#111}header,.card,nav{background:white;color:#111;box-shadow:none;border-color:#bbb}nav,button{display:none}.layout{display:block;max-width:none;padding:0}.card{break-inside:avoid}pre,td,th,.answer{background:#f5f5f5;color:#111;border-color:#bbb}h2,h3,.muted,header p{color:#333}}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">LKPD • Dasar-Dasar PPLG</span>
+  <h1>JavaScript: Mengenal dan Menggunakan Variable</h1>
+  <p>Materi belajar, pengamatan, praktik, tantangan, kesimpulan, dan evaluasi dasar variabel dalam JavaScript.</p>
+  <div class="identity"><div><strong>Nama:</strong> Satria/div><div><strong>Kelas:</strong> PPLG 2</div></div>
+</header>
+<div class="layout">
+<nav><strong>DAFTAR ISI</strong><div class="links">
+<a href="#A">A. Identitas</a><a href="#B">B. Tujuan</a><a href="#C">C. Keselamatan</a><a href="#D">D. Apersepsi</a><a href="#E">E. Mengamati</a><a href="#F">F. Mengenal Variable</a><a href="#G">G. Praktik</a><a href="#H">H. Eksperimen</a><a href="#I">I. Jenis Data</a><a href="#J">J. let dan const</a><a href="#K">K. Penamaan</a><a href="#L">L. Mana yang Benar?</a><a href="#M">M. Data Diri</a><a href="#N">N. Tantangan Level 2</a><a href="#O">O. Debugging</a><a href="#P">P. Challenge</a><a href="#Q">Q. Think Pair Share</a><a href="#R">R. Refleksi</a><a href="#S">S. Refleksi 3-2-1</a><a href="#T">T. Kesimpulan</a><a href="#U">U. Tugas Individu</a><a href="#V">V. Penilaian</a><a href="#W">W. Penilaian Sikap</a><a href="#X">X. Rubrik Program</a><a href="#Y">Y. Exit Ticket</a><a href="#Z">Z. Pesan</a>
+</div></nav>
+<main>
+<section class="card" id="A"><h2><span>A</span>Identitas Pembelajaran</h2><p><b>Mata Pelajaran:</b> Dasar-Dasar Pengembangan Perangkat Lunak dan Gim</p><p><b>Materi:</b> Variable pada JavaScript</p><p><b>Alokasi Waktu:</b> 2 × 45 menit</p><p><b>Model Pembelajaran:</b> Problem Based Learning / Discovery Learning</p><p><b>Metode:</b> Eksplorasi, praktik, diskusi, tanya jawab, refleksi</p></section>
+<section class="card" id="B"><h2><span>B</span>Tujuan Pembelajaran</h2><p>Setelah menyelesaikan kegiatan pembelajaran ini, peserta didik diharapkan mampu:</p><ol><li>Menjelaskan pengertian variable dengan bahasa sendiri.</li><li>Menjelaskan fungsi variable dalam program.</li><li>Membedakan <code>let</code> dan <code>const</code> secara sederhana.</li><li>Membuat variable menggunakan JavaScript.</li><li>Memberikan nama variable sesuai aturan penamaan.</li><li>Menyimpan data berupa teks dan angka ke dalam variable.</li><li>Menampilkan nilai variable menggunakan <code>console.log()</code>.</li><li>Membuat program JavaScript sederhana yang menggunakan beberapa variable.</li><li>Menemukan dan memperbaiki kesalahan sederhana pada penggunaan variable.</li></ol></section>
+<section class="card" id="C"><h2><span>C</span>Petunjuk Keselamatan dan Kerja</h2><p>Dalam kegiatan praktik:</p><ul><li>Gunakan komputer/laptop dengan hati-hati.</li><li>Jangan menghapus file milik teman.</li><li>Simpan pekerjaan secara berkala.</li><li>Jangan menyalin kode teman tanpa memahami fungsinya.</li><li>Jika menemukan error, jangan panik.</li><li>Baca pesan error dan diskusikan penyebabnya.</li><li>Setiap anggota kelompok harus memahami hasil pekerjaan kelompok.</li></ul></section>
+<section class="card" id="D"><h2><span>D</span>Apersepsi</h2><p>Bayangkan kamu sedang membuat aplikasi data siswa. Program perlu mengetahui:</p><ul><li>Nama siswa</li><li>Kelas</li><li>Umur</li><li>Nilai</li><li>Jurusan</li></ul><p>Contohnya:</p><pre>Nama siswa = "Budi"
+Kelas = "XI RPL 1"
+Umur = 16
+Nilai = 85</pre><p><b>Pertanyaan:</b> Menurutmu, bagaimana cara menyimpan informasi tersebut di dalam program?</p><div class="answer"><b>Jawaban:</b> Informasi tersebut dapat disimpan menggunakan variable, misalnya <code>let nama = "Budi";</code>, sehingga datanya dapat digunakan kembali oleh program.</div></section>
+<section class="card" id="E"><h2><span>E</span>Aktivitas 1 — Mengamati</h2><p>Perhatikan kode berikut dan jalankan menggunakan browser.</p><pre>let nama = "Budi";
+let umur = 16;
+let nilai = 85;
+  <img src="Screenshot_20261028-111519.jpg"
+
+console.log(nama);
+console.log(umur);
+  console.log(nilai); </pre><h3>Pertanyaan dan Jawaban</h3><p><b>1. Apa yang ditampilkan pada Console?</b></p><div class="answer">Budi<br>16<br>85</div><p><b>2. Menurutmu, apa fungsi nama, umur, dan nilai?</b></p><div class="answer">Ketiganya adalah variable untuk menyimpan nama siswa, umur, dan nilai.</div><p><b>3. Apa yang terjadi jika kode <code>console.log(nama);</code> dijalankan?</b></p><div class="answer">Console menampilkan nilai yang tersimpan di dalam variable <code>nama</code>, yaitu <code>Budi</code>.</div><p><b>4. Menurut dugaanmu, apa yang dimaksud dengan variable?</b></p><div class="answer">Variable adalah tempat untuk menyimpan data yang dapat digunakan oleh program.</div></section>
+<section class="card" id="F"><h2><span>F</span>Aktivitas 2 — Mengenal Variable</h2><h3>1. Apa itu Variable?</h3><p>Variable dapat dianggap sebagai tempat untuk menyimpan sebuah data agar data tersebut dapat digunakan kembali oleh program.</p><pre>let nama = "Andi";</pre><p>Dapat dibayangkan seperti sebuah kotak bernama <code>nama</code> yang menyimpan nilai <code>"Andi"</code>.</p><table><thead><tr><th>Bagian</th><th>Fungsi</th></tr></thead><tbody><tr><td><code>let</code></td><td>Membuat variable.</td></tr><tr><td><code>nama</code></td><td>Nama variable.</td></tr><tr><td><code>=</code></td><td>Memberikan nilai ke variable.</td></tr><tr><td><code>"Andi"</code></td><td>Nilai yang disimpan.</td></tr></tbody></table></section>
+<section class="card" id="G"><h2><span>G</span>Aktivitas 3 — Praktik Membuat Variable</h2><p>Buat file bernama <code>variable.html</code>, kemudian masukkan kode berikut dan buka file tersebut menggunakan browser.</p><pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Belajar Variable&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+let nama = "keyza";
+let kelas = "PPLG 2";
+let umur = 16;
+
+console.log(nama);
+console.log(kelas);
+console.log(umur);
+  <img src="Screenshot_20261020_062107_Code Studio.jpg"
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><p>Kemudian buka <b>klik kanan → Inspect → Console</b>.</p><h3>Hasil Pengamatan</h3><table><tr><th>Data</th><th>Hasil Console</th></tr><tr><td>Nama</td><td>keyza</td></tr><tr><td>Kelas</td><td>PPLG 2</td></tr><tr><td>Umur</td><td>16</td></tr></table></section>
+<section class="card" id="H"><h2><span>H</span>Aktivitas 4 — Eksperimen</h2><p>Ubah kode <code>let nama = "Budi";</code> menjadi nama kamu sendiri. Ubah juga kelas dan umur sesuai data kamu.</p><pre>let nama = "keyza";
+let kelas = "PPLG 2";
+let umur = 16;
+
+console.log(nama);
+console.log(kelas);
+console.log(umur);
+  <img src="Screenshot_20261028-114011.jpg"
+</pre><p><b>1. Apakah hasil pada Console berubah?</b></p><div class="answer">Ya, hasil Console berubah mengikuti nilai variable yang diperbarui.</div><p><b>2. Bagian kode mana yang kamu ubah?</b></p><div class="answer">Nilai pada variable <code>nama</code>, <code>kelas</code>, dan <code>umur</code>.</div><p><b>3. Mengapa program dapat menampilkan data yang baru?</b></p><div class="answer">Karena program membaca nilai terbaru yang ditetapkan pada variable tersebut.</div></section>
+<section class="card" id="I"><h2><span>I</span>Aktivitas 5 — Variable untuk Menyimpan Berbagai Data</h2><p>JavaScript dapat menyimpan berbagai jenis data. Perhatikan kode berikut:</p><pre>let nama = "Andi";
+let umur = 17;
+let tinggi = 170;
+let aktif = true;</pre><table><tr><th>Variable</th><th>Nilai</th><th>Jenis Data</th></tr><tr><td>nama</td><td>"Andi"</td><td>String (teks)</td></tr><tr><td>umur</td><td>17</td><td>Number (angka)</td></tr><tr><td>tinggi</td><td>170</td><td>Number (angka)</td></tr><tr><td>aktif</td><td>true</td><td>Boolean (benar/salah)</td></tr></table><p><b>Kesimpulan: data yang ditulis menggunakan tanda kutip seperti <code>"Andi"</code> merupakan data:</b></p><div class="answer">String atau teks.</div><p><b>Sedangkan <code>17</code> merupakan data:</b></p><div class="answer">Number atau angka.</div></section>
+<section class="card" id="J"><h2><span>J</span>Aktivitas 6 — Mengenal let dan const</h2><p>Perhatikan kode berikut:</p><pre>let umur = 16;
+umur = 17;
+console.log(umur);</pre><p><b>Hasil:</b></p><div class="answer">17, karena nilai variable yang dibuat dengan <code>let</code> dapat diubah.</div><p>Sekarang coba:</p><pre>const nama = "Budi";
+nama = "Andi";
+console.log(nama);</pre><p><b>Apa yang terjadi?</b></p><div class="answer">Program menghasilkan error karena variable yang dibuat dengan <code>const</code> tidak dapat diberi nilai baru melalui assignment seperti itu.</div><h3>Kesimpulan Sementara</h3><table><tr><th>Keyword</th><th>Nilai dapat diubah?</th><th>Kegunaan sederhana</th></tr><tr><td>let</td><td>Ya</td><td>Untuk data yang mungkin berubah.</td></tr><tr><td>const</td><td>Tidak, tidak dapat di-assign ulang</td><td>Untuk data yang tidak perlu diganti nilainya.</td></tr></table><p><b>Ingat!</b> Gunakan <code>let</code> untuk data yang masih mungkin berubah, contohnya:</p><pre>let nilai = 80;
+nilai = 90;</pre><p>Gunakan <code>const</code> untuk data yang tidak perlu diubah, contohnya:</p><pre>const namaSekolah = "SMK";</pre></section>
+<section class="card" id="K"><h2><span>K</span>Aktivitas 7 — Aturan Penamaan Variable</h2><p>Perhatikan nama variable berikut:</p><pre>let nama;
+let namaSiswa;
+let nama_siswa;
+let umur2;</pre><p><b>Diperbolehkan:</b></p><pre>let nama;
+let namaSiswa;
+let nama_siswa;
+let nilai1;</pre><p><b>Tidak diperbolehkan:</b></p><pre>let 1nama;
+let nama siswa;
+let nama-siswa;</pre><p>JavaScript membedakan huruf besar dan kecil (case-sensitive).</p><pre>let nama = "Andi";
+console.log(nama); // menampilkan Andi
+console.log(Nama); // error karena Nama berbeda dari nama</pre></section>
+<section class="card" id="L"><h2><span>L</span>Aktivitas 8 — Mana yang Benar?</h2><p>Berikan tanda ✓ pada nama variable yang benar dan tanda ✗ pada nama variable yang salah.</p><table><tr><th>No.</th><th>Nama Variable</th><th>✓ / ✗</th></tr><tr><td>1</td><td>nama</td><td>✓</td></tr><tr><td>2</td><td>namaSiswa</td><td>✓</td></tr><tr><td>3</td><td>nama_siswa</td><td>✓</td></tr><tr><td>4</td><td>2nama</td><td>✗</td></tr><tr><td>5</td><td>nama siswa</td><td>✗</td></tr><tr><td>6</td><td>nilaiAkhir</td><td>✓</td></tr><tr><td>7</td><td>nilai1</td><td>✓</td></tr><tr><td>8</td><td>nilai-akhir</td><td>✗</td></tr><tr><td>9</td><td>Alamat</td><td>✓</td></tr><tr><td>10</td><td>alamatSiswa</td><td>✓</td></tr></table><h3>Perbaiki nama variable yang salah</h3><p><code>2nama</code> menjadi:</p><div class="answer"><code>nama2</code></div><p><code>nama siswa</code> menjadi:</p><div class="answer"><code>namaSiswa</code> atau <code>nama_siswa</code></div><p><code>nilai-akhir</code> menjadi:</p><div class="answer"><code>nilaiAkhir</code> atau <code>nilai_akhir</code></div></section>
+<section class="card" id="M"><h2><span>M</span>Aktivitas 9 — Tantangan Data Diri</h2><p>Buat program JavaScript yang menyimpan data diri menggunakan minimal 5 variable. Data yang harus disimpan: nama, kelas, jurusan, umur, dan hobi.</p><p>Contoh program versi ini:</p><pre>let nama = "Budi";
+let kelas = "XI RPL 1";
+let jurusan = "Rekayasa perangkat lunak";
+let umur = 16;
+let hobi = "Bermain gim";
+
+console.log(nama);
+console.log(kelas);
+console.log(jurusan);
+console.log(umur);
+console.log(hobi);</pre><p><b>Tugas:</b> Buat versi kamu sendiri.
+   
+</p><pre>let nama="keyza";
+let kelas="X PPLG 2";
+let jurusan="Pengembangan perangkat lunak dan gim";
+let umur="16";
+let hobi="menonton drakor"
+  
+console.log(nama);
+console.log(kelas);
+console.log(jurusan);
+console.loh(umur)
+cknsole.log(hobi)
+  <img src="Screenshot_20261028-114011.jpg"
+</pre></section>
+<section class="card" id="N"><h2><span>N</span>Aktivitas 10 — Tantangan Level 2</h2><p>Buat program untuk menyimpan data seorang siswa.</p><p><b>Data:</b> nama siswa, nilai Bahasa Indonesia, nilai Matematika, dan nilai Produktif.</p><pre>let nama = "Budi";
+let bahasaIndonesia = 80;
+let matematika = 85;
+let produktif = 90;
+
+console.log(nama);
+console.log(bahasaIndonesia);
+console.log(matematika);
+console.log(produktif);</pre><p><b>Tugas — Buat program sendiri:</b></p><pre>let nama="keyza";
+let bahasaindonesia="100";
+let matematika="90";
+let produktif="90";
+  
+console.log(nama);
+console.log(bahasaIndonesia);
+console.log(matematika);
+console.log(produktif);
+  <img src="Screenshot_20261028-121021 (1).jpg"
+</pre><p><b>1. Berapa variable yang kamu buat?</b></p><div class="answer">4 variable.</div><p><b>2. Mana variable yang menyimpan teks?</b></p><div class="answer">Variable <code>nama</code>.</div><p><b>3. Mana variable yang menyimpan angka?</b></p><div class="answer"><code>bahasaIndonesia</code>, <code>matematika</code>, dan <code>produktif</code>.</div></section>
+<section class="card" id="O"><h2><span>O</span>Aktivitas 11 — Debugging</h2><p>Program berikut memiliki beberapa kesalahan.</p><pre>let nama siswa = "Budi";
+let umur = 16;
+let 2kelas = "XI RPL";
+
+console.log(nama siswa);
+console.log(umur);
+console.log(2kelas);</pre><p><b>Program yang sudah diperbaiki:</b></p><pre>let namaSiswa = "Budi";
+let umur = 16;
+let kelas2 = "XI RPL";
+
+console.log(namaSiswa);
+console.log(umur);
+console.log(kelas2);
+  
+  <img src="file_00000000bca08211aacff49da384d471.png"
+</pre><p><b>Apa saja kesalahan yang ditemukan?</b></p><ol><li>Nama variable <code>nama siswa</code> mengandung spasi; gunakan <code>namaSiswa</code>.</li><li>Nama variable <code>2kelas</code> diawali angka; gunakan <code>kelas2</code>.</li><li>Perintah <code>console.log()</code> juga harus menggunakan nama variable yang sudah diperbaiki.</li></ol></section>
+<section class="card" id="P"><h2><span>P</span>Aktivitas 12 — Challenge: Program Profil Siswa</h2><p>Buat program JavaScript yang menyimpan nama, kelas, jurusan, umur, kota, hobi, dan cita-cita, kemudian tampilkan seluruh data menggunakan <code>console.log()</code>.</p><pre>const nama = "keyza";
+const kelas = "PPLG 2";
+const jurusan = "Pengembangan Perangkat Lunak dan Gim";
+const umur = 16;
+const kota = "Garut";
+const hobi = "membaca novel dan menonton drakor";
+const citaCita = "Programmer";
+const sekolah = "SMKN 1 GARUT";
+const filmFavorit = "Duty after school";
+
+console.log(nama);
+console.log(kelas);
+console.log(jurusan);
+console.log(umur);
+console.log(kota);
+console.log(hobi);
+console.log(citaCita);
+console.log(sekolah);
+console.log(filmFavorit);
+ 
+  <img src="Screenshot_20261020_065146_Code Studio.jpg"
+</pre><p><b>Kembangkan program tersebut! Tambahkan minimal 2 variable baru.</b></p><ol><li>Variable tambahan: <code>sekolah</code></li><li>Variable tambahan: <code>filmFavorit</code></li></ol></section>
+<section class="card" id="Q"><h2><span>Q</span>Aktivitas 13 — Think Pair Share</h2><h3>Think</h3><p>Jawab sendiri terlebih dahulu.</p><p><b>Menurutmu, mengapa programmer membutuhkan variable?</b></p><div class="answer">Programmer membutuhkan variable untuk menyimpan, mengelola, dan menggunakan kembali data di dalam program sehingga kode lebih mudah dibaca dan dikelola.</div><h3>Pair</h3><p>Bandingkan jawabanmu dengan teman. Apakah jawaban kalian sama?</p><div class="answer">☒ Ya &nbsp;&nbsp; ☐ Tidak</div><p><b>Jika berbeda, apa perbedaannya?</b></p><div class="answer">Jika ada perbedaan, biasanya terletak pada cara menjelaskan atau contoh penggunaan variable, tetapi intinya variable menyimpan data.</div><h3>Share</h3><p>Diskusikan hasilnya bersama kelompok.</p><p><b>Tuliskan kesimpulan kelompok:</b></p><div class="answer">Variable penting untuk menyimpan data yang akan dipakai program. Nama variable yang jelas membuat kode lebih mudah dipahami dan diperbaiki.</div></section>
+<section class="card" id="R"><h2><span>R</span>Refleksi</h2><!--refelksi--><p>Berikan tanda ✓ sesuai dengan pemahamanmu.</p><table><tr><th>Pernyataan</th><th>Belum Paham</th><th>Mulai Paham</th><th>Paham</th></tr><tr><td>Saya memahami pengertian variable</td><td>☐</td>☐<td></td><td>☐</td></tr><tr><td>Saya dapat membuat variable dengan let</td><td>☐</td><td>✓</td><td>☐</td></tr><tr><td>Saya memahami penggunaan const</td><td>☐</td><td>☐</td><td>✓</td></tr><tr><td>Saya dapat menyimpan data ke dalam variable</td><td>☐</td><td>✓</td><td>☐</td></tr><tr><td>Saya dapat menampilkan variable dengan console.log()</td><td>☐</td><td>✓</td><td>☐</td></tr><tr><td>Saya dapat memberikan nama variable dengan benar</td><td>☐</td><td>✓</td><td>☐</td></tr><tr><td>Saya dapat menemukan kesalahan variable</td><td>☐</td><td>✓</td><td>☐</td></tr></table></section>
+<section class="card" id="S"><h2><span>S</span>Refleksi 3-2-1</h2><!--refleksi 3-2-1--><h3>3 Hal yang Saya Pelajari</h3><span class>pengertian variabel,fungsi variabel dan perbedaan let dan const</span></li></ol><h3>2 Hal yang Masih Membingungkan</h3><ol><li><span class> cara menuliskan variabel yang benar dan penempatan kode </span></li></ol><h3>1 Hal yang Ingin Saya Coba</h3><p><span class> membuat web aestetik</span></p></section>
+<section class="card" id="T"><h2><span>T</span>Kesimpulan</h2><p><b>Variable adalah</b></p><div class="answer">Tempat untuk menyimpan data yang dapat digunakan kembali oleh program.</div><p><b>let digunakan untuk</b></p><div class="answer">Membuat variable yang nilainya dapat diubah.</div><p><b>const digunakan untuk</b></p><div class="answer">Membuat variable yang tidak dapat diberi nilai baru melalui assignment ulang.</div><p><b>Untuk menampilkan isi variable ke Console kita dapat menggunakan</b></p><div class="answer"><code>console.log()</code></div></section>
+<section class="card" id="U"><h2><span>U</span>Tugas Individu — Data Produk Sederhana</h2><p>Buat program JavaScript bertema <b>“Data Produk Sederhana”</b>. Program harus memiliki minimal 6 variable: nama produk, kategori, harga, stok, merek, dan status produk.</p><pre>const namaProduk = "facial wash";
+const kategori = "skincare";
+const harga = 35.000;
+let stok = 35;
+const merek = "scora";
+const tersedia = true;
+
+console.log(namaProduk);
+console.log(kategori);
+console.log(harga);
+console.log(stok);
+console.log(merek);
+console.log(tersedia);
+  
+  <img src="Screenshot_20261028-122357.jpg"
+</pre><h3>Ketentuan</h3><ul><li>Minimal 6 variable.</li><li>Gunakan <code>let</code> dan <code>const</code>.</li><li>Gunakan nama variable yang benar.</li><li>Minimal terdapat data teks dan angka.</li><li>Program harus dapat dijalankan tanpa error.</li><li>Siswa harus mampu menjelaskan fungsi setiap variable.</li></ul></section>
+<section class="card" id="V"><h2><span>V</span>Penilaian</h2><h3>1. Penilaian Pengetahuan</h3><table><tr><th>Indikator</th><th>Skor</th></tr><tr><td>Menjelaskan pengertian variable</td><td>20</td></tr><tr><td>Menjelaskan fungsi variable</td><td>15</td></tr><tr><td>Membedakan let dan const</td><td>20</td></tr><tr><td>Menjelaskan aturan penamaan variable</td><td>15</td></tr><tr><td>Menjelaskan jenis data sederhana</td><td>10</td></tr><tr><th>Total</th><th>80</th></tr></table><h3>2. Penilaian Keterampilan</h3><table><tr><th>Aspek</th><th>1</th><th>2</th><th>3</th><th>4</th></tr><tr><td>Membuat variable</td><td></td><td></td><td></td><td></td></tr><tr><td>Penamaan variable</td><td></td><td></td><td></td><td></td></tr><tr><td>Penggunaan let / const</td><td></td><td></td><td></td><td></td></tr><tr><td>Menampilkan data</td><td></td><td></td><td></td><td></td></tr><tr><td>Ketepatan kode</td><td></td><td></td><td></td><td></td></tr><tr><td>Debugging</td><td></td><td></td><td></td><td></td></tr><tr><th>Total</th><td></td><td></td><td></td><td></td></tr></table><p><b>Keterangan:</b></p><ul><li><b>4 – Sangat Baik:</b> Dapat melakukan secara mandiri dan benar.</li><li><b>3 – Baik:</b> Dapat melakukan dengan sedikit bantuan.</li><li><b>2 – Cukup:</b> Dapat melakukan tetapi masih membutuhkan bimbingan.</li><li><b>1 – Perlu Bimbingan:</b> Belum mampu melakukan dengan benar.</li></ul></section>
+<section class="card" id="W"><h2><span>W</span>Penilaian Sikap</h2><table><tr><th>Sikap</th><th>1</th><th>2</th><th>3</th><th>4</th></tr><tr><td>Kedisiplinan</td><td></td><td></td><td></td><td></td></tr><tr><td>Kerja sama</td><td></td><td></td><td></td><td></td></tr><tr><td>Tanggung jawab</td><td></td><td></td><td></td><td></td></tr><tr><td>Keaktifan</td><td></td><td></td><td></td><td></td></tr><tr><td>Ketelitian</td><td></td><td></td><td></td><td></td></tr></table></section>
+<section class="card" id="X"><h2><span>X</span>Rubrik Hasil Program</h2><table><tr><th>Kriteria</th><th>Bobot</th></tr><tr><td>Program dapat dijalankan</td><td>20%</td></tr><tr><td>Penggunaan variable benar</td><td>20%</td></tr><tr><td>Penamaan variable benar</td><td>15%</td></tr><tr><td>Penggunaan let dan const tepat</td><td>15%</td></tr><tr><td>Data yang digunakan sesuai</td><td>10%</td></tr><tr><td>Output berhasil ditampilkan</td><td>10%</td></tr><tr><td>Kerapian kode</td><td>10%</td></tr><tr><th>Total</th><th>100%</th></tr></table></section>
+<section class="card" id="Y"><h2><span>Y</span>Exit Ticket</h2><p>Sebelum meninggalkan kelas, jawab tiga pertanyaan berikut.</p><p><b>1. Apa itu variable?</b></p><div class="answer">Variable adalah tempat untuk menyimpan data yang dapat digunakan dalam program.</div><p><b>2. Apa perbedaan let dan const?</b></p><div class="answer"><code>let</code> dapat diberi nilai baru, sedangkan <code>const</code> tidak dapat di-assign ulang.</div><p><b>3. Tuliskan satu contoh variable JavaScript.</b></p><pre>let nama = "keyza";</pre></section>
+<section class="card" id="Z"><h2><span>Z</span>Pesan untuk Peserta Didik</h2><blockquote>Jangan takut ketika program menghasilkan error.<br>Error bukan berarti kamu gagal.<br>Error adalah petunjuk bahwa programmu perlu diperbaiki.<br><br>Programmer yang baik bukan programmer yang tidak pernah mengalami error, tetapi programmer yang mampu mencari dan memperbaiki error.</blockquote></section>
+</main></div>
+<footer>LKPD JavaScript • Mengenal dan Menggunakan Variable</footer>
+<button onclick="window.print()" aria-label="Cetak atau simpan sebagai PDF">Cetak / Simpan PDF</button>
+</body>
+</html>
